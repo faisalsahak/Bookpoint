@@ -6,7 +6,7 @@ import Header from './components/Header';
 import BookList from './components/BookList';
 // import Button from './components/Button';
 import DrawerNavigator from './navigation/DrawerNavigator';
-import BottomTabNavigator from './navigation/BottomTabNavigator';
+import BottomTabNavigator from './navigation/BottomTabNavigator'
 // import console = require('console');
 
 export default class App extends React.Component {
@@ -29,6 +29,7 @@ export default class App extends React.Component {
           {/* <HomeScreen /> */}
           
           <DrawerNavigator/>
+          {/* <BottomTabNavigator /> */}
           {/* <BookList /> */}
 
           {/* this renders the navigation on the bottom */}

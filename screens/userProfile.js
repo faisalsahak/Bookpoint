@@ -42,7 +42,7 @@ class Profile extends React.Component {
               <Header headerText="Profile"/>
             </View>
           <View style={{justifyContent: 'space-evently', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
-            <Image source ={{uri: 'https://static.boredpanda.com/blog/wp-content/uploads/2017/11/My-most-popular-pic-since-I-started-dog-photography-5a0b38cbd5e1e__880.jpg'}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50}} />
+            <Image source ={{uri: 'https://api.adorable.io/avatars/285/test@user.i.png'}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50}} />
             <View style={{marginLeft: 30}}>
               <Text>Name</Text>
               <Text>@username</Text>
