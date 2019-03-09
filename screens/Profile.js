@@ -33,7 +33,47 @@ class Profile extends React.Component {
 
   render() {
     return (
-     
+      <View style={{flex: 1}}>
+        <MenuButton navigation={this.props.navigation} />
+        {this.state.loggedin == true ? (
+          //user is logged in
+          <View style = {{flex: 1}}>
+            <View >
+              <Header headerText="Profile"/>
+            </View>
+          <View style={{justifyContent: 'space-evently', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
+            <Image source ={{uri: 'https://api.adorable.io/avatars/285/test@user.i.png'}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50}} />
+            <View style={{marginLeft: 30}}>
+              <Text>Name</Text>
+              <Text>@username</Text>
+            </View>
+          </View>
+          <View style={{paddingBottom: 20, borderBottomWidth: 1}}>
+            <TouchableOpacity style={styles.touchableComponentStyle}>
+              <Text style={styles.text}>Log Out</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.touchableComponentStyle}>
+              <Text style={styles.text}>Edit Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.touchableComponentStyle}>
+              <Text style={styles.text}
+                onPress={()=>this.props.navigation.navigate("Upload")}
+              >Add Post</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgrey'}}>
+            <Text>Users Uploads....</Text>
+          </View>
+          </View>
+        ):(
+          //user not logged in
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>Your are not Logged in</Text>
+            <Text>Please Login to add a book</Text>
+          </View>
+        )}
+         
+      </View>
     );
     
   }
