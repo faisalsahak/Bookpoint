@@ -20,21 +20,6 @@ const DrawerConfig = {
 	}
 }
 
-const DrawerNavigator =  createDrawerNavigator(
-	{
-		Feed: {
-			screen: Feed
-		},
-		Profile: {
-			screen: Profile
-		},
-		Upload: {
-			screen: Upload
-		},
-	},
-	DrawerConfig
-);
-
 
 const MainStack = createStackNavigator(
   {
