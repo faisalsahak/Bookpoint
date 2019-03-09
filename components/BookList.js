@@ -8,7 +8,49 @@ import BookDetails from './BookDetails';
 // import { database } from 'firebase';
 
 class BookList extends Component{
-  
+    constructor(props){
+      super(props);
+      this.state = { 
+        books: [],
+        refresh: false,
+        loading: true
+      };
+
+    }
+    componentDidMount = ()=>{
+      //load Books
+      this.renderBooks();
+    }
+    // componentWillMount(){
+    //     axios.get('https://bookscdn.herokuapp.com/books')
+    //     .then(res => this.setState({books: res.data.books}))
+    // }
+    //check whether to add s after the time or not
+    pluralCheck = (s)=>{
+      return (s===1? " ago": "s ago")
+    }
+    //takes in timestamp and converts it to sec/min/hour/day/year
+    timeConverter = (timestamp)=>{
+      var a = new Date(timestamp * 1000);
+      var seconds = Math.floor((new Date() - a)/ 1000);
+      //converts and sees the best option to return
+      var interval = Math.floor(seconds / 31536000);
+      if(interval > 1) return interval+ ' year' + this.pluralCheck(interval);
+
+      var interval = Math.floor(seconds / 2592000);
+      if(interval > 1) return interval+ ' month' + this.pluralCheck(interval);
+
+      var interval = Math.floor(seconds / 86400);
+      if(interval > 1) return interval+ ' day' + this.pluralCheck(interval);
+
+      var interval = Math.floor(seconds / 3600);
+      if(interval > 1) return interval+ ' hour' + this.pluralCheck(interval);
+
+      var interval = Math.floor(seconds / 60);
+      if(interval > 1) return interval+ ' minute' + this.pluralCheck(interval);
+      
+      return Math.floor(seconds)+ ' second' + this.pluralCheck(seconds);
+    }
 
     //gets the books from the database
     renderBooks =()=>{
