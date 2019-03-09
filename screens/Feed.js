@@ -3,13 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import MenuButton from '../components/MenuButton'
 import Header from '../components/Header';
+import BookList from '../components/BookList';
 
-export default class LinksScreen extends React.Component {
+export default class Feed extends React.Component {
   render() {
     return (
       <View>
-          <Header headerText="Login/Sign Up"/>
+          <Header headerText="Feed"/>
           <MenuButton navigation={this.props.navigation} />
+          <BookList />
       </View>
     );
   }

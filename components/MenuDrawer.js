@@ -9,6 +9,7 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
+// import console = require('console');
 
 const WIDTH = Dimensions.get('window').width 
 const HEIGHT = Dimensions.get('window').height 
@@ -37,9 +38,11 @@ export default class MenuDrawer extends React.Component {
 						</View>
 					</View>
 					<View style={styles.bottomLinks}>
-						{this.navLink('Home', 'Home')}
-						{this.navLink('Login', 'Login')}
-						{this.navLink('Settings', 'Settings')}
+						{this.navLink('Feed', 'Feed')}
+						{this.navLink('Profile', 'Profile')}
+						{this.navLink('Upload', 'Upload')}
+						
+						
 					</View>
 				</ScrollView>
 				<View style={styles.footer}>
