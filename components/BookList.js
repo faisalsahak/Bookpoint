@@ -81,7 +81,8 @@ class BookList extends Component{
               price: bookObj.price,
               author: bookObj,
               caption: bookObj.caption,
-              posted: that.timeConverter(bookObj.posted)
+              posted: that.timeConverter(bookObj.posted),
+              authorId: bookObj.author
             });
 
 
@@ -97,7 +98,7 @@ class BookList extends Component{
     getBooks(){
       // this.renderBooks();
       return this.state.books.map((book, index)=> 
-        <BookDetails bookCollection={book} key={index}/>
+        <BookDetails bookCollection={book} key={index} navigation={this.props.navigation}/>
         )
     }
 

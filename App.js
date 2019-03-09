@@ -29,7 +29,6 @@ export default class App extends React.Component {
           {/* <HomeScreen /> */}
           
           <DrawerNavigator/>
-          {/* <BottomTabNavigator /> */}
           {/* <BookList /> */}
 
           {/* this renders the navigation on the bottom */}

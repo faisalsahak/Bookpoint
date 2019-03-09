@@ -50,3 +50,4 @@ const MainStack = createStackNavigator(
 )
 
 export default createAppContainer(MainStack);
+export const navigation = navigation

@@ -9,67 +9,97 @@ class Profile extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      loggedin: false
+      loaded: false
     }
   }
 
-  componentDidMount = ()=>{
-    var that = this;
-    f.auth().onAuthStateChanged(function(user){
-      if(user){
-        //user logged in
-        that.setState({
-          loggedin: true
-        });
-      }else{
-        //user not logged in
-        that.setState({
-          loggedin: false
-        });
+  checkParams=()=>{
+    var params = this.props.navigation.state.params;
+    if(params){
+      if(params.userId){
+        this.setState({userId: params.userId});
+        this.fetchUserInfoById(params.userId);
       }
-    });
+    }
+  }
+
+  fetchUserInfoById = (userId)=>{
+    var that = this;
+    //for getting the users info
+    database.ref('users')
+    .child(userId)
+    .child('username')
+    .once('value')
+    .then(function(content){
+      const isThere = (content.val() !== null); // the data is in the database
+      if(isThere) data = content.val();
+      that.setState({username: data})
+    }).catch(err=> console.log(err))
+    // console.log("userrrrrrr", data)
+    //getting the users name
+    database.ref('users')
+    .child(userId)
+    .child('name')
+    .once('value')
+    .then(function(content){
+      const isThere = (content.val() !== null); // the data is in the database
+      if(isThere) data = content.val();
+      that.setState({name: data})
+    }).catch(err=> console.log(err))
+    // console.log("nameeeeeeeee", data)
+    //getting the users avatar
+    database.ref('users')
+    .child(userId)
+    .child('avatar')
+    .once('value')
+    .then(function(content){
+      const isThere = (content.val() !== null); // the data is in the database
+      if(isThere) data = content.val();
+      that.setState({avatar: data, loaded: true})
+    }).catch(err => console.log(err))
+    // console.log("avatarrrrrr", data)
+  }
+
+  componentDidMount = ()=>{
+    this.checkParams();
+    
   }
 
 
   render() {
+
     return (
       <View style={{flex: 1}}>
         <MenuButton navigation={this.props.navigation} />
-        {this.state.loggedin == true ? (
+        {this.state.loaded == false ?(
+          <View>
+            <Text>Loading......</Text>
+          </View>
+        ): (
+
+        
           //user is logged in
           <View style = {{flex: 1}}>
-            <View >
+            <View>
               <Header headerText="Profile"/>
             </View>
+          <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightGrey', borderBottomWidth: 0.5, justifyContent: 'center',justifyContent: 'space-between', alignItems: 'center'}}>
+            <TouchableOpacity
+             onPress={()=> this.props.navigation.goBack()}>
+              <Text style={{fontSize: 12, fontWeight: 'bold'}}>Go Back</Text>
+            </TouchableOpacity>
+          </View>
           <View style={{justifyContent: 'space-evently', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
-            <Image source ={{uri: 'https://api.adorable.io/avatars/285/test@user.i.png'}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50}} />
+            <Image source ={{uri: this.state.avatar}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50}} />
             <View style={{marginLeft: 30}}>
-              <Text>Name</Text>
-              <Text>@username</Text>
+              <Text>{this.state.name}</Text>
+              <Text>{this.state.username}</Text>
             </View>
           </View>
-          <View style={{paddingBottom: 20, borderBottomWidth: 1}}>
-            <TouchableOpacity style={styles.touchableComponentStyle}>
-              <Text style={styles.text}>Log Out</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.touchableComponentStyle}>
-              <Text style={styles.text}>Edit Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.touchableComponentStyle}>
-              <Text style={styles.text}
-                onPress={()=>this.props.navigation.navigate("Upload")}
-              >Add Post</Text>
-            </TouchableOpacity>
-          </View>
+        
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgrey'}}>
             <Text>Users Uploads....</Text>
           </View>
-          </View>
-        ):(
-          //user not logged in
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Your are not Logged in</Text>
-            <Text>Please Login to add a book</Text>
           </View>
         )}
          

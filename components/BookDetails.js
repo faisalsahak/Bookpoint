@@ -1,44 +1,48 @@
 import React, {Component} from 'react';
-import {View, Text, Image, Linking} from 'react-native';
+import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
 
 
-const Book = ({bookCollection})=>{
-    const {title, isbn, author, price, image_url, caption, posted} = bookCollection;
-    const {headerContentStyle, thumbnailStyle,
-            thumbnailContainerStyle, headerTextStyle,
-            imageStyle
-          } = styles;
-    return(
-        <Card style={thumbnailStyle}>
-            <CardSection>
-                <View style={thumbnailContainerStyle}>
-                    <Image source={{uri: image_url}} style={thumbnailStyle}/>
-                </View>
-                <View style={headerContentStyle}>
-                    <Text style={headerTextStyle}>{title}</Text>
-                    <Text>@{author.author}</Text>
-                    <Text>Time Ago: {posted}</Text>
-                    <Text>Price: {price}</Text>
-                </View>
-            </CardSection>
-            <CardSection>
-                <Image 
-                    style={imageStyle}
-                    source={{uri: image_url}} 
-                    />
-            </CardSection>
-            <CardSection>
-                <View style={{padding: 5}}>
-                  <Text>{caption}</Text>
-                  <Text style={{marginTop: 10, textAlign: 'center'}}>Contact...</Text>
-                </View>
-                {/* <Button onPress = {() =>Linking.openURL(website)}>Buy Now!</Button> */}
-            </CardSection>
-        </Card>
-    );
+class Book extends Component{
+    render(){
+        const {title, isbn, author, price, image_url, caption, posted, authorId} = this.props.bookCollection;
+        const {headerContentStyle, thumbnailStyle,
+                thumbnailContainerStyle, headerTextStyle,
+                imageStyle
+            } = styles;
+        return(
+            <Card style={thumbnailStyle}>
+                <CardSection>
+                    <View style={thumbnailContainerStyle}>
+                        <Image source={{uri: image_url}} style={thumbnailStyle}/>
+                    </View>
+                    <View style={headerContentStyle}>
+                        <Text style={headerTextStyle}>{title}</Text>
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate('User',{userId: authorId})}>
+                            <Text>@{author.author}</Text>
+                        </TouchableOpacity>
+                        <Text>Time Ago: {posted}</Text>
+                        <Text>Price: {price}</Text>
+                    </View>
+                </CardSection>
+                <CardSection>
+                    <Image 
+                        style={imageStyle}
+                        source={{uri: image_url}} 
+                        />
+                </CardSection>
+                <CardSection>
+                    <View style={{padding: 5}}>
+                    <Text>{caption}</Text>
+                    <Text style={{marginTop: 10, textAlign: 'center'}}>Contact...</Text>
+                    </View>
+                    {/* <Button onPress = {() =>Linking.openURL(website)}>Buy Now!</Button> */}
+                </CardSection>
+            </Card>
+        );
+    }
 }
 
 const styles = {
