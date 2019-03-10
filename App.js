@@ -28,8 +28,9 @@ export default class App extends React.Component {
         {/* <Header headerText="BookPoint"/> */}
           {/* <HomeScreen /> */}
           
-          {/* <DrawerNavigator/> */}
+
           <BottomTabNavigator/>
+          {/* <DrawerNavigator/> 
           {/* <BookList /> */}
 
           {/* this renders the navigation on the bottom */}
