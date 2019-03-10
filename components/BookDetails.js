@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
+// import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 class Book extends Component{
     render(){
-        const {title, isbn, author, price, image_url, caption, posted, authorId} = this.props.bookCollection;
+        const {title, author, price, image_url, caption, posted, authorId, id} = this.props.bookCollection;
         const {headerContentStyle, thumbnailStyle,
                 thumbnailContainerStyle, headerTextStyle,
                 imageStyle
@@ -35,8 +38,23 @@ class Book extends Component{
                 </CardSection>
                 <CardSection>
                     <View style={{padding: 5}}>
-                    <Text>{caption}</Text>
-                    <Text style={{marginTop: 10, textAlign: 'center'}}>Contact...</Text>
+                        <Text>{caption}</Text>
+                        <View style={{width: '100%', flexDirection: 'row'}}>
+                            <Text style={{top: 15, textAlign: 'center'}}>Contact...</Text>
+                            <TouchableOpacity 
+                            >
+                                <Ionicons
+                                    name="md-mail"
+                                    color="#000000"
+                                    size={22}
+                                    style={{textAlign: 'center', left: 265, top: 15}}
+                                    onPress={()=> this.props.navigation.navigate('Comments', {userId: id})}
+                                    // style={styles.menuIcon}
+                                    // onPress={() => this.props.navigation.toggleDrawer()}
+                                />
+                            </TouchableOpacity>
+                            {/* <Text>View Comments</Text> */}
+                        </View>
                     </View>
                     {/* <Button onPress = {() =>Linking.openURL(website)}>Buy Now!</Button> */}
                 </CardSection>

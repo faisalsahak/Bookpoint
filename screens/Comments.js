@@ -36,17 +36,17 @@ class Upload extends React.Component {
     return (
       <View>
           <View>
-            <Header headerText="Upload"/>
+            <Header headerText="Comments"/>
             <MenuButton navigation={this.props.navigation} />
           </View>
           {this.state.loggedin == true ? (
             //user logged in
-            <Text>Logged in</Text>
+            <Text>Logged in Comments</Text>
           ) : (
             //not logged in
             <View style = {styles.notLoggedInStyle}>
               <Text>Your are not Logged in</Text>
-              <Text>Please Login to upload a book</Text>
+              <Text>Please Login to comment on a book</Text>
             </View>
           )}
       </View>

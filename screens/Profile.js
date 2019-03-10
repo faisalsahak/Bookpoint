@@ -4,12 +4,14 @@ import {f, auth, database, storage} from '../config/config';
 
 import MenuButton from '../components/MenuButton'
 import Header from '../components/Header';
+import ListBooks from '../components/ListBooks';
 
 class Profile extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      loggedin: false
+      loggedin: false,
+      userId: ''
     }
   }
 
@@ -19,18 +21,20 @@ class Profile extends React.Component {
       if(user){
         //user logged in
         that.setState({
-          loggedin: true
+          loggedin: true,
+          userId: user.uid
         });
       }else{
         //user not logged in
         that.setState({
           loggedin: false
+          
         });
       }
     });
   }
-
-
+  
+  
   render() {
     return (
       <View style={{flex: 1}}>
@@ -61,9 +65,7 @@ class Profile extends React.Component {
               >Add Post</Text>
             </TouchableOpacity>
           </View>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgrey'}}>
-            <Text>Users Uploads....</Text>
-          </View>
+          <ListBooks isUser={true} userId={this.state.userId} navigation={this.props.navigation}/>
           </View>
         ):(
           //user not logged in

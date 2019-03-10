@@ -52,23 +52,9 @@ class BookList extends Component{
       return Math.floor(seconds)+ ' second' + this.pluralCheck(seconds);
     }
 
-    //gets the books from the database
-    renderBooks =()=>{
-      this.setState({
-        refresh: true,
-        books: []
-      });
-
-      var that = this; //the context of this will be lost when we make a request to the data base
-
-      database.ref('books').orderByChild('author').once('value').then(function(snapshot){
-        //checks if books are actually found in the database
-        const exists = (snapshot.val() !== null);
-        if(exists) data = snapshot.val();
-        var books = that.state.books;
-        
-        for(var book in data){
-          var bookObj = data[book];
+    addToFeed = (books, data,book)=>{
+      var that = this;
+      var bookObj = data[book];
           database.ref('users').child(bookObj.author).child('username').once('value').then(function(snapshot){
             console.log("username!!!!!!!!!!!!", bookObj)
             const exists = (snapshot.val() !== null);
@@ -91,6 +77,25 @@ class BookList extends Component{
               loading: false
             });
           }).catch(err => console.log(err));
+    }
+
+    //gets the books from the database
+    renderBooks =()=>{
+      this.setState({
+        refresh: true,
+        books: []
+      });
+
+      var that = this; //the context of this will be lost when we make a request to the data base
+
+      database.ref('books').orderByChild('author').once('value').then(function(snapshot){
+        //checks if books are actually found in the database
+        const exists = (snapshot.val() !== null);
+        if(exists) data = snapshot.val();
+        var books = that.state.books;
+        
+        for(var book in data){
+          that.addToFeed(books,data, book)
         }
       }).catch(err => console.log(err));
     }
