@@ -10,17 +10,10 @@ import BottomTabNavigator from './navigation/BottomTabNavigator'
 // import console = require('console');
 
 export default class App extends React.Component {
-  login = async() =>{
-    try{
-      let user = await auth.signInWithEmailAndPassword('test@test.com', 'test123');
-    }catch(err){
-      console.log(err);
-    }
-  }
+  
 
   constructor(props){
     super(props);
-    this.login();
   }
   render() {
     return (
@@ -30,7 +23,7 @@ export default class App extends React.Component {
           
 
           <BottomTabNavigator/>
-          {/* <DrawerNavigator/> 
+           {/* <DrawerNavigator/>  */}
           {/* <BookList /> */}
 
           {/* this renders the navigation on the bottom */}

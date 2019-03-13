@@ -5,7 +5,7 @@ import { Permissions, ImagePicker} from 'expo';
 
 import MenuButton from '../components/MenuButton'
 import Header from '../components/Header';
-import { firstFromTime } from 'uuid-js';
+import Auth from '../components/Auth';
 
 
 class Upload extends React.Component {
@@ -25,7 +25,7 @@ class Upload extends React.Component {
   }
 
   //checks the camera permissions on the users device
-  _checkPermissions = async ()=>{
+  checkPermissions = async ()=>{
 
     //gets the Camera permissions from the user to open their gallary
     const {status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -69,7 +69,7 @@ class Upload extends React.Component {
   }
 
   pickNewImage = async ()=>{
-    await this._checkPermissions();
+    await this.checkPermissions();
     //launchImageLibraryAsync
     let image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: 'Images',//just show images not videos or music
@@ -281,23 +281,19 @@ class Upload extends React.Component {
 
              
               <View style={{ justifyContent: 'center', alignItems: 'center', top: 300}} >
-                <Text style={{fontSize: 28, paddingBottom: 15}}>Upload</Text>
+                <Text style={{fontSize: 28, paddingBottom: 25}}>Upload</Text>
                 <TouchableOpacity onPress={()=> this.pickNewImage()}
                   style={{paddingVertical: 19, paddingHorizontal: 18, backgroundColor: 'lightgrey', borderRadius: 5}}>
-                  <Text style={{color:'black'}}>Pick Pic</Text>
+                  <Text style={{color:'black', justifyContent: 'center', alignItems: 'center'}}>Pick</Text>
                 </TouchableOpacity>
-                
-                
-                
+                                
               </View>
                )}
             </View>
           ) : (
             //not logged in
-            <View style = {styles.notLoggedInStyle}>
-              <Text>Your are not Logged in</Text>
-              <Text>Please Login to upload a book</Text>
-            </View>
+            <Auth message={'Please Login to upload a book'} />
+           
           )}
       </View>
     );
@@ -323,3 +319,332 @@ const styles = StyleSheet.create({
 
 
 export default Upload;
+
+
+
+// import React from 'react';
+// import {
+//   ActivityIndicator,
+//   Button,
+//   Clipboard,
+//   Image,
+//   Share,
+//   StatusBar,
+//   StyleSheet,
+//   Text,
+//   TouchableOpacity,
+//   View,
+// } from 'react-native';
+// import { Constants, ImagePicker, Permissions } from 'expo';
+// import uuid from 'uuid';
+// // import * as firebase from 'firebase';
+// import {f, auth, database, storage} from '../config/config';
+
+// console.disableYellowBox = true;
+
+// export default class App extends React.Component {
+//   state = {
+//     image: null,
+//     loggedin: false,
+//     bookId: this.uniqueId(),
+//     imageSelected: false,
+//     uploading: false,
+//     caption:'',
+//     price: '',
+//     title: '',
+//     progress: 0
+//   };
+
+
+//   randomSequence = ()=>{
+//     return Math.floor((1+ Math.random()) * 0x10000).toString(16).substring(1);
+//   }
+
+//   uniqueId = ()=>{
+//     return this.randomSequence() + this.randomSequence()+ '-' + this.randomSequence()+ '-'
+//     + this.randomSequence()+ '-'+ this.randomSequence()+ '-'+ this.randomSequence()+ '-'+ this.randomSequence()+ '-'
+//     + this.randomSequence();
+//   }
+
+
+
+  
+  
+//   async componentDidMount() {
+//     await Permissions.askAsync(Permissions.CAMERA_ROLL);
+//     await Permissions.askAsync(Permissions.CAMERA);
+
+//     var that = this;
+//     f.auth().onAuthStateChanged(function(user){
+//       if(user){
+//         //user logged in
+//         that.setState({
+//           loggedin: true
+//         });
+//       }else{
+//         //user not logged in
+//         that.setState({
+//           loggedin: false
+//         });
+//       }
+//     });
+//   }
+
+//   render() {
+//     let { image } = this.state;
+
+//     return (
+//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//         {image ? null : (
+//           <Text
+//             style={{
+//               fontSize: 20,
+//               marginBottom: 20,
+//               textAlign: 'center',
+//               marginHorizontal: 15,
+//             }}>
+//             Example: Upload ImagePicker result
+//           </Text>
+//         )}
+
+//         <Button
+//           onPress={this._pickImage}
+//           title="Pick an image from camera roll"
+//         />
+
+//         <Button onPress={this._takePhoto} title="Take a photo" />
+
+//         {this._maybeRenderImage()}
+//         {this._maybeRenderUploadingOverlay()}
+
+//         <StatusBar barStyle="default" />
+//       </View>
+//     );
+//   }
+
+//   _maybeRenderUploadingOverlay = () => {
+//     if (this.state.uploading) {
+//       return (
+//         <View
+//           style={[
+//             StyleSheet.absoluteFill,
+//             {
+//               backgroundColor: 'rgba(0,0,0,0.4)',
+//               alignItems: 'center',
+//               justifyContent: 'center',
+//             },
+//           ]}>
+//           <ActivityIndicator color="#fff" animating size="large" />
+//         </View>
+//       );
+//     }
+//   };
+
+//   _maybeRenderImage = () => {
+//     let { image } = this.state;
+//     if (!image) {
+//       return;
+//     }
+
+//     return (
+//       <View
+//         style={{
+//           marginTop: 30,
+//           width: 250,
+//           borderRadius: 3,
+//           elevation: 2,
+//         }}>
+//         <View
+//           style={{
+//             borderTopRightRadius: 3,
+//             borderTopLeftRadius: 3,
+//             shadowColor: 'rgba(0,0,0,1)',
+//             shadowOpacity: 0.2,
+//             shadowOffset: { width: 4, height: 4 },
+//             shadowRadius: 5,
+//             overflow: 'hidden',
+//           }}>
+//           <Image source={{ uri: image }} style={{ width: 250, height: 250 }} />
+//         </View>
+
+//         <Text
+//           onPress={this._copyToClipboard}
+//           onLongPress={this._share}
+//           style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+//           {image}
+//         </Text>
+//       </View>
+//     );
+//   };
+
+//   _share = () => {
+//     Share.share({
+//       message: this.state.image,
+//       title: 'Check out this photo',
+//       url: this.state.image,
+//     });
+//   };
+
+//   _copyToClipboard = () => {
+//     Clipboard.setString(this.state.image);
+//     alert('Copied image URL to clipboard');
+//   };
+
+//   //   //checks the camera permissions on the users device
+// //   checkPermissions = async ()=>{
+
+// //     //gets the Camera permissions from the user to open their gallary
+// //     const {status } = await Permissions.askAsync(Permissions.CAMERA);
+// //     if (status !== 'granted') {
+// //       const newCameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+// //       if (newCameraPermission === 'granted') {
+// //         console.log('camera permissions granted')
+// //         //its granted.
+// //         this.setState({camera: newCameraPermission});
+// //       }else console.log("camera permissions failed 2nd time");
+// //     } else {
+// //       console.log("camera permissions granted");
+// //       this.setState({camera: status});
+// //     }
+
+// //     //gets the Camera Roll permission from the user to open their gallary
+// //     const {statusRoll } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+// //     if (statusRoll !== 'granted') {
+// //       const newCameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+// //       if (newCameraRollPermission.status === 'granted') {
+// //         //its granted.
+// //         this.setState({cameraRoll: newCameraRollPermission});
+// //       }else console.log("camera roll permissions failed 2nd time")
+// //     } else {
+// //       console.log("camera roll permissions granted");
+// //       this.setState({cameraRoll: statusRoll});
+// //     }
+
+    
+
+// //   }
+
+// // pickNewImage = async ()=>{
+//   //     await this.checkPermissions();
+//   //     //launchImageLibraryAsync
+//   //     let image = await ImagePicker.launchImageLibraryAsync({
+//   //       mediaTypes: 'Images',//just show images not videos or music
+//   //       allowsEditing: true, //so we can crop the image
+//   //       quality: 1 // best quality, runs from 0.1 to 1, 1 being the best
+//   //     })
+//   //     .catch(err => console.log(err))
+  
+//   //     if(!image.cancelled){// if the user doesnt presses cancel when choosing an image
+//   //       console.log('upload image'); 
+//   //       this.setState({
+//   //         imageSelected: true,
+//   //         imageId: this.uniqueId(),
+//   //         uri: image.uri
+//   //       })
+//   //       // this.uploadImage(image.uri);
+  
+//   //     }else{// user presses cancel
+//   //       console.log('user pressed cancel')
+//   //       this.setState({
+//   //         imageSelected: false
+//   //       });
+//   //     }
+//   //   }
+
+//   _takePhoto = async () => {
+//     let pickerResult = await ImagePicker.launchCameraAsync({
+//       allowsEditing: true,
+//       aspect: [4, 3],
+//     });
+
+//     if(!pickerResult.cancelled){// if the user doesnt presses cancel when choosing an image
+//       console.log('upload image'); 
+//       this.setState({
+//         imageSelected: true,
+//         imageId: this.uniqueId(),
+//         uri: image.uri
+//       })
+//       // this.uploadImage(image.uri);
+
+//     }else{// user presses cancel
+//       console.log('user pressed cancel')
+//       this.setState({
+//         imageSelected: false
+//       });
+//     }
+
+//     this._handleImagePicked(pickerResult);
+//   };
+
+//   _pickImage = async () => {
+//     let pickerResult = await ImagePicker.launchImageLibraryAsync({
+//       allowsEditing: true,
+//       aspect: [4, 3],
+//     });
+
+//     if(!pickerResult.cancelled){// if the user doesnt presses cancel when choosing an image
+//       console.log('upload image'); 
+//       this.setState({
+//         imageSelected: true,
+//         imageId: this.uniqueId(),
+//         uri: image.uri
+//       })
+//       // this.uploadImage(image.uri);
+
+//     }else{// user presses cancel
+//       console.log('user pressed cancel')
+//       this.setState({
+//         imageSelected: false
+//       });
+//     }
+
+//     this._handleImagePicked(pickerResult);
+//   };
+
+//   _handleImagePicked = async pickerResult => {
+//     try {
+//       this.setState({ uploading: true });
+
+//       if (!pickerResult.cancelled) {
+//         uploadUrl = await uploadImageAsync(pickerResult.uri);
+//         this.setState({ image: uploadUrl });
+//       }
+//     } catch (e) {
+//       console.log(e);
+//       alert('Upload failed, sorry :(');
+//     } finally {
+//       this.setState({ uploading: false });
+//     }
+//   };
+// }
+
+// async function uploadImageAsync(uri) {
+//   // Why are we using XMLHttpRequest? See:
+//   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+//   const blob = await new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.onload = function() {
+//       resolve(xhr.response);
+//     };
+//     xhr.onerror = function(e) {
+//       console.log(e);
+//       reject(new TypeError('Network request failed'));
+//     };
+//     xhr.responseType = 'blob';
+//     xhr.open('GET', uri, true);
+//     xhr.send(null);
+//   });
+
+//   // const link = this.uniqueId();
+
+//   const ref = 
+//     storage
+//     .ref('/images/')
+//     .child();
+//   const snapshot = await ref.put(blob);
+
+//   // We're done with the blob, close and release it
+//   blob.close();
+
+//   return await snapshot.ref.getDownloadURL();
+// }

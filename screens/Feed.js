@@ -7,7 +7,7 @@ import BookList from '../components/BookList';
 
 export default class Feed extends React.Component {
   render() {
-    console.log("proppss", this.props.navigation)
+    // console.log("proppss", this.props.navigation)
     return (
       <View>
           <Header headerText="Feed"/>

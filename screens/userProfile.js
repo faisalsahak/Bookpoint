@@ -4,17 +4,23 @@ import {f, auth, database, storage} from '../config/config';
 
 import MenuButton from '../components/MenuButton'
 import Header from '../components/Header';
+import ListBooks from '../components/ListBooks';
 
 class Profile extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      loaded: false
+      loaded: false,
+      userId: '',
+      name:'',
+      username:'',
+      avatar: ''
     }
   }
 
   checkParams=()=>{
     var params = this.props.navigation.state.params;
+    // console.log("parammsssss ", params)
     if(params){
       if(params.userId){
         this.setState({userId: params.userId});
@@ -24,6 +30,7 @@ class Profile extends React.Component {
   }
 
   fetchUserInfoById = (userId)=>{
+    // console.log("rom userProfileeeee ", userId)
     var that = this;
     //for getting the users info
     database.ref('users')
@@ -67,7 +74,7 @@ class Profile extends React.Component {
 
 
   render() {
-
+    // console.log("UserProfile ")
     return (
       <View style={{flex: 1}}>
         <MenuButton navigation={this.props.navigation} />
@@ -97,9 +104,7 @@ class Profile extends React.Component {
             </View>
           </View>
         
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgrey'}}>
-            <Text>Users Uploads....</Text>
-          </View>
+            <ListBooks isUser={true} userId={this.state.userId} navigation={this.props.navigation} />
           </View>
         )}
          

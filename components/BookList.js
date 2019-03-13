@@ -56,7 +56,7 @@ class BookList extends Component{
       var that = this;
       var bookObj = data[book];
           database.ref('users').child(bookObj.author).child('username').once('value').then(function(snapshot){
-            console.log("username!!!!!!!!!!!!", bookObj)
+            // console.log("username!!!!!!!!!!!!", bookObj)
             const exists = (snapshot.val() !== null);
             if(exists) data = snapshot.val();
             books.push({
@@ -70,7 +70,6 @@ class BookList extends Component{
               posted: that.timeConverter(bookObj.posted),
               authorId: bookObj.author
             });
-
 
             that.setState({
               refresh: false,
@@ -112,6 +111,7 @@ class BookList extends Component{
         return (
             // <Text>AlbumListsss!!!</Text>
             <View>
+              <Text>Total Books: {this.state.books.length}</Text>
               {this.state.loading == true ? (
                 <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
                   <Text>Loading................</Text>

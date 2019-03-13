@@ -10,13 +10,14 @@ import Button from './Button';
 
 class Book extends Component{
     render(){
+        // console.log("from BookDetail ", this.props)
         const {title, author, price, image_url, caption, posted, authorId, id} = this.props.bookCollection;
         const {headerContentStyle, thumbnailStyle,
                 thumbnailContainerStyle, headerTextStyle,
-                imageStyle
+                imageStyle, cardStyle
             } = styles;
         return(
-            <Card style={thumbnailStyle}>
+            <Card style={cardStyle}>
                 <CardSection>
                     <View style={thumbnailContainerStyle}>
                         <Image source={{uri: image_url}} style={thumbnailStyle}/>
@@ -48,7 +49,7 @@ class Book extends Component{
                                     color="#000000"
                                     size={22}
                                     style={{textAlign: 'center', left: 265, top: 15}}
-                                    onPress={()=> this.props.navigation.navigate('Comments', {userId: id})}
+                                    onPress={()=> this.props.navigation.navigate('Comments', {bookId: id})}
                                     // style={styles.menuIcon}
                                     // onPress={() => this.props.navigation.toggleDrawer()}
                                 />
@@ -64,6 +65,10 @@ class Book extends Component{
 }
 
 const styles = {
+    cardStyle:{
+        maxHeight: 150,
+        maxWidth: 100
+    },
     headerContentStyle: {
         flexDirection: 'column',
         justifyContent: 'space-around'
