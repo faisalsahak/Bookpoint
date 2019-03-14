@@ -13,7 +13,8 @@ class BookList extends Component{
       this.state = { 
         books: [],
         refresh: false,
-        loading: true
+        loading: true,
+        arrIndex: 0
       };
 
     }
@@ -54,26 +55,44 @@ class BookList extends Component{
 
     addToFeed = (books, data,book)=>{
       var that = this;
+      var dataToPush = {};
       var bookObj = data[book];
           database.ref('users').child(bookObj.author).child('username').once('value').then(function(snapshot){
-            // console.log("username!!!!!!!!!!!!", bookObj)
             const exists = (snapshot.val() !== null);
             if(exists) data = snapshot.val();
-            books.push({
-              id: book,
-              title: bookObj.title,
-              isbn: bookObj.isbn,
-              image_url: bookObj.picture,
-              price: bookObj.price,
-              author: bookObj,
-              caption: bookObj.caption,
-              posted: that.timeConverter(bookObj.posted),
-              authorId: bookObj.author
-            });
+            // console.log("username!!!!!!!!!!!!", snapshot)
+            // books.push({
+              
+              dataToPush.id =  book,
+              dataToPush.title =  bookObj.title,
+              dataToPush.isbn =  bookObj.isbn,
+              dataToPush.image_url =  bookObj.picture,
+              dataToPush.price =  bookObj.price,
+              dataToPush.author =  bookObj,
+              dataToPush.caption =  bookObj.caption,
+              dataToPush.posted =  that.timeConverter(bookObj.posted),
+              dataToPush.authorId =  bookObj.author
+            
 
+            // that.setState({
+            //   refresh: false,
+            //   loading: false,
+            // });
+          }).catch(err => console.log(err));
+
+
+          database.ref('users').child(bookObj.author).once('value').then(function(snapshot){
+            const exists = (snapshot.val() !== null);
+            if(exists) data = snapshot.val();
+            console.log("username!!!!!!!!!!!!", data.books.picture);
+            dataToPush.avatar = data.avatar;
+            // dataToPush.image_url = data.books.picture
+            // books[this.state.arrIndex]
+
+            books.push(dataToPush)
             that.setState({
               refresh: false,
-              loading: false
+              loading: false,
             });
           }).catch(err => console.log(err));
     }

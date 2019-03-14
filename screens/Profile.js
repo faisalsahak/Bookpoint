@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import {f, auth, database, storage} from '../config/config';
-import { LinearGradient } from 'expo';
+import { LinearGradient, ImagePicker,Permissions } from 'expo';
 
 
 import MenuButton from '../components/MenuButton'
@@ -15,9 +15,22 @@ class Profile extends React.Component {
     super(props);
     this.state ={
       loggedin: false,
+      avatarChanged: false,
       userId: '',
-      name:''
+      name:'',
+      uri: '',
+      newProfilePicUri: ''
     }
+  }
+
+    randomSequence = ()=>{
+    return Math.floor((1+ Math.random()) * 0x10000).toString(16).substring(1);
+  }
+
+  uniqueId = ()=>{
+    return this.randomSequence() + this.randomSequence()+ '-' + this.randomSequence()+ '-'
+    + this.randomSequence()+ '-'+ this.randomSequence()+ '-'+ this.randomSequence()+ '-'+ this.randomSequence()+ '-'
+    + this.randomSequence();
   }
 
   fetchUserInfo= (userId)=>{
@@ -63,6 +76,7 @@ class Profile extends React.Component {
   saveProfile =()=>{
     var name = this.state.name;
     var username = this.state.username;
+    var avatar = this.state.avatar;
 
     if(name!= ''){
       database.ref('users').child(this.state.userId).child('name').set(name);
@@ -71,7 +85,88 @@ class Profile extends React.Component {
     if(username!= ''){
       database.ref('users').child(this.state.userId).child('username').set(username);
     }
+    if(this.state.avatarChanged){
+      this.uploadImageAsync(avatar)
+      // database.ref('users').child(this.state.userId).child('avatar').set(this.state.avatar);
+      // console.log("profilleeeee, ", this.state.avatar)
+      // this.setState({avatar: this.state.newProfilePicUri})
+    }
     this.setState({editingProfile: false})
+  }
+
+  changeProfilePicture = async()=>{
+    // need to check if the call fails *********************
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    await Permissions.askAsync(Permissions.CAMERA);
+    this.pickImage();
+  }
+
+  pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if(!pickerResult.cancelled){// if the user doesnt presses cancel when choosing an image
+      console.log('upload image'); 
+      this.setState({
+        imageSelected: true,
+        imageId: this.uniqueId(),
+        avatar: pickerResult.uri,
+        newProfilePicUri: pickerResult.uri,
+        avatarChanged: true
+      })
+      // this.uploadImage(image.uri);
+      // this._handleImagePicked(pickerResult);
+
+    }else{// user presses cancel
+      console.log('user pressed cancel')
+      this.setState({
+        imageSelected: false,
+        avatarChanged: false
+      });
+    }
+
+  };
+
+  uploadImageAsync = async(uri)=> {
+    // console.log("uriiiiiii ",uri)
+    var that = this;
+    // console.lg("book iddd, ",that.state.bookId)
+    // Why are we using XMLHttpRequest? See:
+    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function(e) {
+        console.log(e);
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    });
+  
+    // const link = this.uniqueId();
+  
+    const ref = 
+      storage
+      .ref()
+      .child('images/'+that.state.username+'/'+that.state.imageId);
+    const snapshot = await ref.put(blob)
+  
+    // We're done with the blob, close and release it
+    blob.close();
+  
+    // return await snapshot.ref.getDownloadURL();
+    const uploadUrl = await snapshot.ref.getDownloadURL();
+    this.setState({avatar: uploadUrl})
+
+    database.ref('users').child(this.state.userId).child('avatar').set(uploadUrl);
+    // console.log("profilleelee ", uploadUrl)
+    // this.processData(uploadUrl);
   }
   
   
@@ -95,6 +190,9 @@ class Profile extends React.Component {
             </View>
           {this.state.editingProfile == true ? (
             <View style={{allignItems:'center', justifyContent:'center', paddingBottom: 20, borderBottomWidth: 1, marginLeft: 30}}>
+            <TouchableOpacity onPress={()=>this.changeProfilePicture()}>
+              <Text>Change Profile Pic</Text>
+            </TouchableOpacity>
               <TouchableOpacity onPress={()=>this.setState({editingProfile: false})}>
                 <Text style={{fontWeight: 'bold', marginBottom: 5}}>Cancel Editing</Text>
               </TouchableOpacity>

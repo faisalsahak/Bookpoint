@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {f, auth, database, storage} from '../config/config';
 
 import Card from './Card';
 import CardSection from './CardSection';
@@ -9,9 +10,46 @@ import Button from './Button';
 
 
 class Book extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            avatar: ''
+        }
+    }
+
+    componentDidMount(){
+        var that = this;
+        f.auth().onAuthStateChanged(function(user){
+        if(user){
+            // console.log("BookDetailsjs File ",user)
+            //user logged in
+            that.fetchUserInfo(user.uid);
+        }else{
+            //user not logged in
+            that.setState({
+            loggedin: false
+            
+            });
+        }
+        });
+    }
+
+    fetchUserInfo= (userId)=>{
+        var that = this;
+        database.ref('users').child(userId).once('value').then(function(snapshot){
+          const exists =(snapshot.val() !== null);
+          if(exists) data = snapshot.val();
+        //   console.log('bookdetailsssssss, ', data.avatar)
+          that.setState({
+            avatar: data.avatar,
+          })
+        //   console.log('Bookdaetata, ',that.state.avatar)
+        })
+      }
+
     render(){
         // console.log("from BookDetail ", this.props)
-        const {title, author, price, image_url, caption, posted, authorId, id} = this.props.bookCollection;
+        const {title, author, price, image_url, caption, posted, authorId, id, avatar} = this.props.bookCollection;
         const {headerContentStyle, thumbnailStyle,
                 thumbnailContainerStyle, headerTextStyle,
                 imageStyle, cardStyle
@@ -20,7 +58,7 @@ class Book extends Component{
             <Card style={cardStyle}>
                 <CardSection>
                     <View style={thumbnailContainerStyle}>
-                        <Image source={{uri: image_url}} style={thumbnailStyle}/>
+                        <Image source={{uri: avatar}} style={thumbnailStyle}/>
                     </View>
                     <View style={headerContentStyle}>
                         <Text style={headerTextStyle}>{title}</Text>
