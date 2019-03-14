@@ -181,7 +181,7 @@ class Profile extends React.Component {
             <View >
               <Header headerText="Profile"/>
             </View>
-            <View style={{justifyContent: 'space-evently', alignItems: 'center', flexDirection: 'column', paddingVertical: 10}}>
+            <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'column', paddingVertical: 10}}>
               <Image source ={{uri: this.state.avatar}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50}} />
               <View style={{marginLeft: 30}}>
                 <Text>{this.state.name}</Text>
