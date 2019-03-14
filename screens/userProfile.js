@@ -77,7 +77,7 @@ class Profile extends React.Component {
     // console.log("UserProfile ")
     return (
       <View style={{flex: 1}}>
-        <MenuButton navigation={this.props.navigation} />
+        {/* <MenuButton navigation={this.props.navigation} /> */}
         {this.state.loaded == false ?(
           <View>
             <Text>Loading......</Text>

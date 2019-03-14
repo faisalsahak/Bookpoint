@@ -9,12 +9,23 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
+import {f, auth, database, storage} from '../config/config';
+
 // import console = require('console');
 
 const WIDTH = Dimensions.get('window').width 
 const HEIGHT = Dimensions.get('window').height 
 
 export default class MenuDrawer extends React.Component {
+	constructor(props){
+		super(props);
+		this.state={
+			loggedin: false,
+			username: '',
+			avatar: ''
+		}
+	}
+
 	navLink(nav, text) {
 		return(
 			<TouchableOpacity style={{height: 50}} onPress={() => this.props.navigation.navigate(nav)}>
@@ -23,6 +34,38 @@ export default class MenuDrawer extends React.Component {
 		)
 	}
 
+	fetchUserInfo= (userId)=>{
+		var that = this;
+		database.ref('users').child(userId).once('value').then(function(snapshot){
+		  const exists =(snapshot.val() !== null);
+		  if(exists) data = snapshot.val();
+		  console.log('MenuDrawer file, ', data)
+		  that.setState({
+			username: data.username,
+			avatar: data.avatar,
+			loggedin: true,
+			userId: userId
+		  })
+		})
+	  }
+	
+	  componentDidMount = ()=>{
+		var that = this;
+		f.auth().onAuthStateChanged(function(user){
+		  if(user){
+			console.log(user)
+			//user logged in
+			that.fetchUserInfo(user.uid);
+		  }else{
+			//user not logged in
+			that.setState({
+			  loggedin: false
+			  
+			});
+		  }
+		});
+	  }
+
 	render() {
 		return(
 			<View style={styles.container}>
@@ -30,10 +73,10 @@ export default class MenuDrawer extends React.Component {
 					<View style={styles.topLinks}>
 						<View style={styles.profile}>
 							<View style={styles.imgView}>
-								<Image style={styles.img} source={require('../assets/pic.jpg')} />
+								<Image style={styles.img} source={{uri: this.state.avatar}} />
 							</View>
 							<View style={styles.profileText}>
-								<Text style={styles.name}>Users Name</Text>
+								<Text style={styles.name}>{this.state.username}</Text>
 							</View>
 						</View>
 					</View>
