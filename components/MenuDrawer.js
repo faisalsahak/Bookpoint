@@ -73,7 +73,10 @@ export default class MenuDrawer extends React.Component {
 					<View style={styles.topLinks}>
 						<View style={styles.profile}>
 							<View style={styles.imgView}>
-								<Image style={styles.img} source={{uri: this.state.avatar}} />
+								<TouchableOpacity onPress={()=>this.props.navigation.navigate('Profile',{userId: this.state.userId})}>
+									<Image style={styles.img} source={{uri: this.state.avatar}} />
+
+								</TouchableOpacity>
 							</View>
 							<View style={styles.profileText}>
 								<Text style={styles.name}>{this.state.username}</Text>
