@@ -31,23 +31,25 @@ const DrawerNavigator =  createDrawerNavigator(
 		Upload: {
 			screen: Upload
 		},
+		User:{screen: userProfile},
+		Comments:{screen: Comments}
 	},
 	DrawerConfig
 );
 
 
-const MainStack = createStackNavigator(
-  {
-    Home:{screen: DrawerNavigator},
-    User:{screen: userProfile},
-    Comments:{screen: Comments}
-  },
-  {
-    initialRouteName: 'Home',
-    mode: 'modal',
-    headerMode: 'none'
-  }
-)
+// const MainStack = createStackNavigator(
+//   {
+//     Home:{screen: DrawerNavigator},
+//     User:{screen: userProfile},
+//     Comments:{screen: Comments}
+//   },
+//   {
+//     initialRouteName: 'Home',
+//     mode: 'modal',
+//     headerMode: 'none'
+//   }
+// )
 
-export default createAppContainer(MainStack);
+export default createAppContainer(DrawerNavigator);
 export const navigation = navigation

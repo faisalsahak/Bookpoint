@@ -25,7 +25,7 @@ const BottomTabNavigator = createBottomTabNavigator({
 
 const MainStack = createStackNavigator(
     {
-      Home:{screen: BottomTabNavigator},
+      // Home:{screen: BottomTabNavigator},
       User:{screen: userProfile},
       Comments:{screen: Comments}
     },

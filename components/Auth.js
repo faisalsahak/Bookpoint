@@ -73,7 +73,7 @@ class Auth extends React.Component {
             {/* <Text>Your are not Logged in</Text> */}
             <Text>{this.props.message}</Text>
             {this.state.authStep == 0?(
-              <View style={{ marginVertical: 20, flexDirection: 'columnd', flexWrap: 'wrap', alignItems: 'wrap'}} >
+              <View style={{ marginVertical: 20, flexDirection: 'column'}} > 
                 <TouchableOpacity onPress={()=> this.setState({authStep: 2})}>
                   {/* <Text style={{fontWeight:'bold', color: 'blue', marginBottom: 20, fontSize: 25}}>Sign Up</Text> */}
                   {/* <LinearGradient
@@ -219,12 +219,12 @@ class Auth extends React.Component {
 
 
 const styles = {
-  loginStyle:{
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'wrap'
-  },
+  // loginStyle:{
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   alignItems: 'wrap'
+  // },
   circleGradient: {
     margin: 1,
     backgroundColor: "white",
