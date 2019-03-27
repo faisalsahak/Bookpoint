@@ -46,18 +46,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-          
-        {this.state.loggedin?(
           <DrawerNavigator/> 
-        ):(
-          <View>
-            <Login />
-            {/* <BottomTabNavigator /> */}
-            {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Feed',{userId: 123})}><Text>View Feed</Text></TouchableOpacity> */}
-            <TouchableOpacity onPress={() => this.showFeed()}><Text>Feed</Text></TouchableOpacity>
-          </View>
           
-        )}
+        
 
       </View>
     );
