@@ -12,22 +12,21 @@ const BottomTabNavigator = createBottomTabNavigator({
     Feed: {
         screen: Feed
     },
-    Profile: {
-        screen: Profile
-    },
-    Upload: {
-        screen: Upload
-    },
-    Comments: {
-      screen: Comments
-    }
+    // Profile: {
+    //     screen: Profile
+    // },
+    // Upload: {
+    //     screen: Upload
+    // },
+    // Comments: {
+    //   screen: Comments
+    // }
 })
 
-const MainStack = createStackNavigator(
-    {
-      // Home:{screen: BottomTabNavigator},
-      User:{screen: userProfile},
-      Comments:{screen: Comments}
+const MainStack = createStackNavigator({
+      Home:{screen: BottomTabNavigator},
+      // User:{screen: userProfile},
+      // Comments:{screen: Comments}
     },
     {
       initialRouteName: 'Home',

@@ -1,34 +1,63 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, TextInput, TouchableOpacity, Button } from 'react-native';
 import {f, auth, database} from './config/config'
 
 import Header from './components/Header';
 import BookList from './components/BookList';
 // import Button from './components/Button';
 import DrawerNavigator from './navigation/DrawerNavigator';
-import BottomTabNavigator from './navigation/BottomTabNavigator'
+import BottomTabNavigator from './navigation/BottomTabNavigator';
+import Login from './screens/Login'
 // import console = require('console');
 
 export default class App extends React.Component {
   
-
   constructor(props){
     super(props);
+    this.state = {
+      loggedin: false,
+      userId: ''
+    }
+
+    this.showFeed = this.showFeed.bind(this);
   }
+
+  componentDidMount(){
+    var that = this;
+    f.auth().onAuthStateChanged(function(user){
+      if(user){
+        //user logged in
+        that.setState({
+          loggedin: true
+        });
+      }else{
+        //user not logged in
+        that.setState({
+          loggedin: false
+        });
+      }
+    });
+  }
+
+  showFeed = ()=>{
+    this.props.navigation.navigate('Feed');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        {/* <Header headerText="BookPoint"/> */}
-          {/* <HomeScreen /> */}
           
-
-          {/* <BottomTabNavigator/> */}
-           <DrawerNavigator/> 
-          {/* <BookList /> */}
-
-          {/* this renders the navigation on the bottom */}
-          {/* <BottomTabNavigator /> */}
-          {/* <HomeScreen /> */}
+        {this.state.loggedin?(
+          <DrawerNavigator/> 
+        ):(
+          <View>
+            <Login />
+            {/* <BottomTabNavigator /> */}
+            {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Feed',{userId: 123})}><Text>View Feed</Text></TouchableOpacity> */}
+            <TouchableOpacity onPress={() => this.showFeed()}><Text>Feed</Text></TouchableOpacity>
+          </View>
+          
+        )}
 
       </View>
     );
