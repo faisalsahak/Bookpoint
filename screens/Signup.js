@@ -13,6 +13,42 @@ class Signup extends Component{
       name: '',
       userName: ''
     }
+    this.signUp = this.signUp.bind(this);
+  }
+  //checks the user name the user entered agains the ones in the database
+  findUserInDatabase =(data, user)=>{
+    var that = this;
+    const userName = this.state.username
+    var isUnique = true;
+    var userObj = data[user];
+    if(userObj.username === userName){
+      // console.log("user Info:  ", userObj.username);
+      isUnique = false;
+      this.setState({isUniqueUsername: isUnique});
+      alert("not Unique");
+      // return true;
+    }
+
+  }
+// gets the username from the user and checks it against the usernames in the database, returns true if the user name exist and alerts the user
+  checkUniqueUser=()=>{
+    var that = this;
+    database.ref('users').orderByChild('username').once('value').then(function(snapshot){
+      //checks if books are actually found in the database
+      const exists = (snapshot.val() !== null);
+      if(exists) data = snapshot.val();
+      // var books = that.state.books;
+      for(var username in data){// goes through each user in the database
+        
+        that.findUserInDatabase(data, username);
+        if(!that.state.isUniqueUsername)
+          return;
+          // return true;
+        
+        // that.addToFeed(books,data, book)
+      }
+    }).catch(err => console.log(err));
+    this.setState({isUniqueUsername: true})
   }
 
   createUserObj = (userObj, email) =>{
@@ -26,23 +62,30 @@ class Signup extends Component{
     database.ref('users').child(userObj.uid).set(userObject);
   }
 
-
   signup = async() =>{
     const email = this.state.email;
     const password = this.state.password;
+    this.checkUniqueUser();
     // const name = this.state.name;
     // const usrname = this.state.username;
-    if(email != '' && password != ''){
-      try{
-        let user = await auth.createUserWithEmailAndPassword(email,password)
-        .then((userObj)=> this.createUserObj(userObj.user, email))
-        .catch((err)=>alert(err))
-      }catch(err){
-        console.log(err);
+    console.log("isssssuniquereeee ", this.state.isUniqueUsername);
+    if(this.state.isUniqueUsername){
+      if(email != '' && password != ''){
+        try{
+          let user = await auth.createUserWithEmailAndPassword(email,password)
+          .then((userObj)=> this.createUserObj(userObj.user, email))
+          .catch((err)=>alert(err))
+        }catch(err){
+          console.log(err);
+        }
+      }else{
+        alert("email or password empty");
       }
     }else{
-      alert("email or password empty");
+      alert("Username "+that.state.username+ " is already taken");
+      console.log("username is taken")
     }
+    
   }
 
   render(){
