@@ -134,90 +134,90 @@ class Auth extends React.Component {
             <View style={{marginVertical: 20}}>
               {this.state.authStep == 1 ?(
                 //login
-                // <Login authStepHandler = {this.authStepHandler}/>
-                <View>
-                  <TouchableOpacity onPress={()=>this.setState({authStep: 0})}
-                  style={{borderBottomWidth: 1, paddingVertical:5, marginBottom: 10, borderBottomColor:'black'}}>
-                    <Text >Back</Text>
-                  </TouchableOpacity>
-                  <Text style={{fontWeight: 'bold', marginBottom: 20}}>Login</Text>
-                  <Text>Email Address:</Text>
-                  <TextInput 
-                  editable={true}r
-                  keyboardType={'email-address'}
-                  placeholder={'Enter Your Email'}
-                  onChangeText={(text)=>this.setState({email: text})}
-                  value={this.state.email}
-                  style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
-                  />
+                <Login authStepHandler = {this.authStepHandler}/>
+                // <View>
+                //   <TouchableOpacity onPress={()=>this.setState({authStep: 0})}
+                //   style={{borderBottomWidth: 1, paddingVertical:5, marginBottom: 10, borderBottomColor:'black'}}>
+                //     <Text >Back</Text>
+                //   </TouchableOpacity>
+                //   <Text style={{fontWeight: 'bold', marginBottom: 20}}>Login</Text>
+                //   <Text>Email Address:</Text>
+                //   <TextInput 
+                //   editable={true}r
+                //   keyboardType={'email-address'}
+                //   placeholder={'Enter Your Email'}
+                //   onChangeText={(text)=>this.setState({email: text})}
+                //   value={this.state.email}
+                //   style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
+                //   />
 
-                  <Text>Password:</Text>
-                  <TextInput 
-                  editable={true}
-                  secureTextEntry={true}
-                  placeholder={'Enter Your Password'}
-                  onChangeText={(text)=>this.setState({password: text})}
-                  value={this.state.password}
-                  style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
-                  />
+                //   <Text>Password:</Text>
+                //   <TextInput 
+                //   editable={true}
+                //   secureTextEntry={true}
+                //   placeholder={'Enter Your Password'}
+                //   onChangeText={(text)=>this.setState({password: text})}
+                //   value={this.state.password}
+                //   style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
+                //   />
 
-                  <TouchableOpacity
-                    onPress={()=>this.login()}
-                    style={{ paddingVertical:10, paddingHorizontal:20, borderRadius: 5}}
-                  >
-                    {/* <Text>Login</Text> */}
-                    <LinearGradient start={[0, 0.5]}
-                                  end={[1, 0.5]}
-                                  colors={['#EFBB35', '#4AAE9B']}
-                                  style={{borderRadius: 5}}>
-                    <View style={styles.circleGradient}>
-                      <Text style={styles.visit}>Login</Text>
-                    </View>
-                  </LinearGradient>
-                  </TouchableOpacity>
-                </View>
+                //   <TouchableOpacity
+                //     onPress={()=>this.login()}
+                //     style={{ paddingVertical:10, paddingHorizontal:20, borderRadius: 5}}
+                //   >
+                //     {/* <Text>Login</Text> */}
+                //     <LinearGradient start={[0, 0.5]}
+                //                   end={[1, 0.5]}
+                //                   colors={['#EFBB35', '#4AAE9B']}
+                //                   style={{borderRadius: 5}}>
+                //     <View style={styles.circleGradient}>
+                //       <Text style={styles.visit}>Login</Text>
+                //     </View>
+                //   </LinearGradient>
+                //   </TouchableOpacity>
+                // </View>
               ):(
-                // <Signup authStepHandler = {this.authStepHandler}/>
-                <View>
-                  <TouchableOpacity onPress={()=>this.setState({authStep: 0})}
-                  style={{borderBottomWidth: 1, paddingVertical:5, marginBottom: 10, borderBottomColor:'black'}}>
-                    <Text style={{fontWeight: 'bold'}}>Back</Text>
-                  </TouchableOpacity>
-                  <Text style={{fontWeight: 'bold', marginBottom: 20}}>Sign Up</Text>
-                  <Text>Email Address:</Text>
-                  <TextInput 
-                  editable={true}
-                  keyboardType={'email-address'}
-                  placeholder={'Enter Your Email'}
-                  onChangeText={(text)=>this.setState({email: text})}
-                  value={this.state.email}
-                  style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
-                  />
+                <Signup authStepHandler = {this.authStepHandler}/>
+                // <View>
+                //   <TouchableOpacity onPress={()=>this.setState({authStep: 0})}
+                //   style={{borderBottomWidth: 1, paddingVertical:5, marginBottom: 10, borderBottomColor:'black'}}>
+                //     <Text style={{fontWeight: 'bold'}}>Back</Text>
+                //   </TouchableOpacity>
+                //   <Text style={{fontWeight: 'bold', marginBottom: 20}}>Sign Up</Text>
+                //   <Text>Email Address:</Text>
+                //   <TextInput 
+                //   editable={true}
+                //   keyboardType={'email-address'}
+                //   placeholder={'Enter Your Email'}
+                //   onChangeText={(text)=>this.setState({email: text})}
+                //   value={this.state.email}
+                //   style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
+                //   />
 
-                  <Text>Password:</Text>
-                  <TextInput 
-                  editable={true}
-                  secureTextEntry={true}
-                  placeholder={'Enter Your Password'}
-                  onChangeText={(text)=>this.setState({password: text})}
-                  value={this.state.password}
-                  style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
-                  />
+                //   <Text>Password:</Text>
+                //   <TextInput 
+                //   editable={true}
+                //   secureTextEntry={true}
+                //   placeholder={'Enter Your Password'}
+                //   onChangeText={(text)=>this.setState({password: text})}
+                //   value={this.state.password}
+                //   style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
+                //   />
 
-                  <TouchableOpacity
-                    onPress={()=>this.signup()}
-                    style={{ paddingVertical:10, paddingHorizontal:20, borderRadius: 5}}
-                  >
-                    <LinearGradient start={[0, 0.5]}
-                                  end={[1, 0.5]}
-                                  colors={['#EFBB35', '#4AAE9B']}
-                                  style={{borderRadius: 5}}>
-                    <View style={styles.circleGradient}>
-                      <Text style={styles.visit}>Sign Up</Text>
-                    </View>
-                  </LinearGradient>
-                  </TouchableOpacity>
-                </View>
+                //   <TouchableOpacity
+                //     onPress={()=>this.signup()}
+                //     style={{ paddingVertical:10, paddingHorizontal:20, borderRadius: 5}}
+                //   >
+                //     <LinearGradient start={[0, 0.5]}
+                //                   end={[1, 0.5]}
+                //                   colors={['#EFBB35', '#4AAE9B']}
+                //                   style={{borderRadius: 5}}>
+                //     <View style={styles.circleGradient}>
+                //       <Text style={styles.visit}>Sign Up</Text>
+                //     </View>
+                //   </LinearGradient>
+                //   </TouchableOpacity>
+                // </View>
               )}
             </View>
             }

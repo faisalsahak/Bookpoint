@@ -54,6 +54,8 @@ class Book extends Component{
                 thumbnailContainerStyle, headerTextStyle,
                 imageStyle, cardStyle
             } = styles;
+
+            // const {navigate}  = this.props.navigation
         return(
             <Card style={cardStyle}>
                 <CardSection>

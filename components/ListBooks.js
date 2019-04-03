@@ -169,8 +169,9 @@ class ListBooks extends Component {
 
   getBooks(){
     // this.renderBooks();
+    const {navigation} = this.props
     return this.state.books.map((book, index)=> 
-      <BookDetails bookCollection={book} key={index} navigation={this.props.navigation}/>
+      <BookDetails bookCollection={book} key={index} navigation={navigation}/>
       )
   }
 
@@ -347,7 +348,7 @@ class ListBooks extends Component {
                     <Text style={{textAlign: 'center', justifyContent:'center'}}>Total Books: {this.state.books.length}</Text>
                     {/* <Text>{this.state.books[0]}</Text> */}
                     <ScrollView>
-                    {this.getBooks()}
+                      {this.getBooks()}
                     </ScrollView>
                     </View>
                 )}
