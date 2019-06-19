@@ -32,7 +32,34 @@ const BottomTabNavigator = createBottomTabNavigator({
          
         }
     },
-    
+    Post: {
+        screen: Upload,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconColor = "red";
+              const iconName = "ios-add-circle"; //might need to change it if it doesnt work on android
+              return <Ionicons name={iconName} size={35} color={iconColor} />;
+          },
+        }
+    },
+    Chat: {
+      screen: Upload,
+      navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = "ios-chatboxes"; //might need to change it if it doesnt work on android
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        }
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = "account"; //might need to change it if it doesnt work on android
+              return <MaterialCommunityIcons name={iconName} size={25} color={tintColor} />;
+          },
+        }
+    }
 })
 
 const MainStack = createStackNavigator({
