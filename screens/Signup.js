@@ -13,7 +13,6 @@ class Signup extends Component{
       name: '',
       userName: ''
     }
-    this.signUp = this.signUp.bind(this);
   }
   //checks the user name the user entered agains the ones in the database
   findUserInDatabase =(data, user)=>{

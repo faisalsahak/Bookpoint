@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform, Text, View } from 'react-native';
 import { createBottomTabNavigator,createAppContainer,createStackNavigator } from 'react-navigation';
 
@@ -10,17 +11,28 @@ import Comments from '../screens/Comments';
 
 const BottomTabNavigator = createBottomTabNavigator({
     Feed: {
-        screen: Feed
+        screen: Feed,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = "ios-home"; //might need to change it if it doesnt work on android
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        }
     },
-    // Profile: {
-    //     screen: Profile
-    // },
-    // Upload: {
-    //     screen: Upload
-    // },
-    // Comments: {
-    //   screen: Comments
-    // }
+    Favorite: {
+        screen: Profile,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = "ios-heart-empty"; //might need to change it if it doesnt work on android
+              return <Ionicons name={iconName} size={25}  focused={focused} tintColor={tintColor}  />;
+          },
+          // tabBarOptions:{ // changes the whole color of the icon and text
+          //   activeTintColor: 'red' 
+          // },
+         
+        }
+    },
+    
 })
 
 const MainStack = createStackNavigator({
