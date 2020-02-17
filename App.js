@@ -76,7 +76,16 @@ const styles = StyleSheet.create({
     marginBottom:30,
     justifyContent:'center'
   },
-
+  loginContainerText: {
+    top: 450,
+    left: 135,
+    // paddingRight: 0,
+    justifyContent: 'center',
+    // backgroundColor:'black',
+    textAlign:'center',
+    flexDirection: 'column'
+    // alignSelf:'center'
+  },
   signOutContainerText:{
     // flex: 1,
     // left: 100,
