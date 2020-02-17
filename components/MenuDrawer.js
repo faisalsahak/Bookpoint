@@ -49,7 +49,22 @@ export default class MenuDrawer extends React.Component {
 		})
 	  }
 	
-	  
+	  componentDidMount = ()=>{
+		var that = this;
+		f.auth().onAuthStateChanged(function(user){
+		  if(user){
+			console.log(user)
+			//user logged in
+			that.fetchUserInfo(user.uid);
+		  }else{
+			//user not logged in
+			that.setState({
+			  loggedin: false
+			  
+			});
+		  }
+		});
+	  }
 
 	render() {
 		return(
