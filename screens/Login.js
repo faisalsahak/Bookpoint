@@ -40,7 +40,7 @@ class Login extends Component{
           <TextInput 
           editable={true}r
           keyboardType={'email-address'}
-          placeholder={'Enter Your Email'}
+          placeholder={'Please Enter Your Email'}
           onChangeText={(text)=>this.setState({email: text})}
           value={this.state.email}
           style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}
@@ -50,7 +50,7 @@ class Login extends Component{
           <TextInput 
           editable={true}
           secureTextEntry={true}
-          placeholder={'Enter Your Password'}
+          placeholder={'Please Enter Your Password'}
           onChangeText={(text)=>this.setState({password: text})}
           value={this.state.password}
           style={{width: 250, marginVertical: 10, padding: 5, borderColor: 'grey', borderRadius: 3, borderWidth: 1}}

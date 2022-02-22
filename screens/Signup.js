@@ -24,7 +24,7 @@ class Signup extends Component{
       // console.log("user Info:  ", userObj.username);
       isUnique = false;
       this.setState({isUniqueUsername: isUnique});
-      alert("not Unique");
+      alert("User is not unique");
       // return true;
     }
 
@@ -78,7 +78,7 @@ class Signup extends Component{
           console.log(err);
         }
       }else{
-        alert("email or password empty");
+        alert("email or password field empty");
       }
     }else{
       alert("Username "+that.state.username+ " is already taken");
