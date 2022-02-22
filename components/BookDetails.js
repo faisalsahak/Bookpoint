@@ -94,7 +94,7 @@ class Book extends Component{
                                     // onPress={() => this.props.navigation.toggleDrawer()}
                                 />
                             </TouchableOpacity>
-                            {/* <Text>View Comments</Text> */}
+                            {/* <Text>View the Comments</Text> */}
                         </View>
                     </View>
                     {/* <Button onPress = {() =>Linking.openURL(website)}>Buy Now!</Button> */}

@@ -61,7 +61,7 @@ class Auth extends React.Component {
         console.log(err);
       }
     }else{
-      alert("email or password empty");
+      alert("email or password is empty");
     }
   }
 

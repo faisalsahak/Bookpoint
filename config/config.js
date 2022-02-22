@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-//firebase API details
+//firebase API detailss
 const config = {
     apiKey: "AIzaSyAWrDPIoT_HjpuzaLveWr8SXI0umo7fk5k",
     authDomain: "bookpoint-46002.firebaseapp.com",

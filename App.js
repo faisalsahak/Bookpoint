@@ -27,6 +27,7 @@ export default class App extends React.Component {
     f.auth().onAuthStateChanged(function(user){
       if(user){
         //user logged in
+        console.log("user logged in")
         that.setState({
           loggedin: true
         });

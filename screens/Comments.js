@@ -19,7 +19,7 @@ class Comments extends React.Component {
 
   checkParams = ()=>{
     var params = this.props.navigation.state.params;
-    // console.log("parammsssss ", params)
+    // console.log("parammss ", params)
     if(params){
       if(params.bookId){
         console.log("id.....",params.bookId)
@@ -57,8 +57,8 @@ class Comments extends React.Component {
     var that = this;
     database.ref('comments').child(bookId).orderByChild('posted').once('value').then(function(snapshot){
       const exists = (snapshot.val() !== null);
-      // console.log("snaptshot ", snapshot)
-      if(exists){// add comments to the list
+      // console.log("snaptshots ", snapshot)
+      if(exists){// add commentss to the list
         data = snapshot.val();
         var comments_list = that.state.comments_list;
         for(var comment in data){

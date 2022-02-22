@@ -133,7 +133,7 @@ class BookList extends Component{
               <Text>Total Books: {this.state.books.length}</Text>
               {this.state.loading == true ? (
                 <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text>Loading................</Text>
+                  <Text>Loading..................</Text>
                 </View>
               ):(
               <ScrollView>

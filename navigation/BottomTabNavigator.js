@@ -27,7 +27,7 @@ const BottomTabNavigator = createBottomTabNavigator({
               return <Ionicons name={iconName} size={25}  focused={focused} tintColor={tintColor}  />;
           },
           // tabBarOptions:{ // changes the whole color of the icon and text
-          //   activeTintColor: 'red' 
+          //   activeTintColor: 'red's 
           // },
          
         }

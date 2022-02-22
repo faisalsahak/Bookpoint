@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
   notLoggedInStyle: {
     top: 350,
     left: 120
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   touchableComponentStyle:{
     marginTop: 10, 
