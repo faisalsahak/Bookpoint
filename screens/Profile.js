@@ -8,7 +8,7 @@ import MenuButton from '../components/MenuButton'
 import Header from '../components/Header';
 import ListBooks from '../components/ListBooks';
 import Auth from '../components/Auth';
-// import console = require('consoles');
+import console = require('consoles');
 
 class Profile extends React.Component {
   constructor(props){

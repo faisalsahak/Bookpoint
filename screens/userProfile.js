@@ -20,7 +20,7 @@ class Profile extends React.Component {
 
   checkParams=()=>{
     var params = this.props.navigation.state.params;
-    // console.log("parammsssss ", params)
+    console.log("parammsssss ", params)
     if(params){
       if(params.userId){
         this.setState({userId: params.userId});
@@ -30,7 +30,7 @@ class Profile extends React.Component {
   }
 
   fetchUserInfoById = (userId)=>{
-    // console.log("rom userProfileeeee ", userId)
+    console.log("rom userProfileeeee ", userId)
     var that = this;
     //for getting the users info
     database.ref('users')
@@ -77,7 +77,7 @@ class Profile extends React.Component {
     // console.log("UserProfile ")
     return (
       <View style={{flex: 1}}>
-        {/* <MenuButton navigation={this.props.navigation} /> */}
+        { <MenuButton navigation={this.props.navigation} /> }
         {this.state.loaded == false ?(
           <View>
             <Text>Loading......</Text>

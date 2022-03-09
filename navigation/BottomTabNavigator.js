@@ -64,13 +64,13 @@ const BottomTabNavigator = createBottomTabNavigator({
 
 const MainStack = createStackNavigator({
       Home:{screen: BottomTabNavigator},
-      // User:{screen: userProfile},
-      // Comments:{screen: Comments}
+      User:{screen: userProfile},
+      Comments:{screen: Comments}
     },
     {
       initialRouteName: 'Home',
       mode: 'modal',
-      headerMode: 'none'
+      // headerMode: 'none'
     }
   )
 
